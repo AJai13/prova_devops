@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  produtos:
+    build: ./produtos
+    ports:
+      - "3001:3001"
+    networks:
+      - positivo
+
+  pedidos:
+    build: ./pedidos
+    depends_on:
+      - produtos
+      - db
+      - redis
+    ports:
+      - "3002:3002"
+    networks:
+      - positivo
+
+  pagamentos:
+    build: ./pagamentos
+    depends_on:
+      - pedidos
+    ports:
+      - "3003:3003"
+    networks:
+      - positivo
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: prova_devops
+      MYSQL_DATABASE: positivo
+    ports:
+      - "3307:3306"
+    networks:
+      - positivo
+
+  redis:
+    image: redis
+    ports:
+      - "6380:6379"
+    networks:
+      - positivo
+
+networks:
+  positivo:
+    driver: bridge
