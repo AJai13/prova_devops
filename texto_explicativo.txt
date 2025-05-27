@@ -1,0 +1,15 @@
+# Comando para rodar docker-compose:
+docker-compose up --build
+
+- Dockerfile da API de produtos:
+Usa 'node:16' como base de linguagem. Copia o código da API de produtos para a imagem do DOcker, instala as dependências necessárias e expõe a porta 3001 para essa API.
+
+- Dockerfile da API de pedidos:: 
+Usa `python:3.9` como base de linguagem. Copia o código da API de pedidos para a imagem do Docker, instala as bibliotecas necessárias e expõe a porta 3002 para essa API.
+
+- Dockerfile da API de pagamento: 
+Usa `php:8.0-cli` como base de linguagem. Copia o código da API de pagamento para a imagem do Docker e expõe a porta 3003 para essa API.
+
+- docker-compose:
+Define os cinco services (das três APIs, do banco de dados e do Redis) com caminho dos diretórios dos códigos das APIs, as imagens dos bancos de dados (relacional e cache), as portas que deverão ser expostas, dependências que cada API tem entre si (comunicação entre APIs) e qual a conexão com banco de dados (database e senha).
+
